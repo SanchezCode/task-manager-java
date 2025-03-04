@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import com.taskmanager.models.Task;
+
 import com.taskmanager.services.TaskManager;
 
 public class Main {
