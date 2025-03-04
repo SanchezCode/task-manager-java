@@ -3,6 +3,7 @@ import com.taskmanager.models.Task;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 
 
@@ -45,6 +46,34 @@ public class TaskManager {
 			System.out.println("La tarea: " + taskToRemove.getTitle() + " se ha borrado.");
 		} else {
 			System.out.println("La tarea no se encontro.");
+		}
+		
+	}
+	
+	public void updateTask(String title) {
+		Task taskToUpdate = getTaskByName(title);
+		if(taskToUpdate != null) {
+			Scanner input = new Scanner(System.in);
+			int index = tasks.indexOf(taskToUpdate);
+			
+			System.out.println("Nuevo titulo: ");
+			String newTitle = input.nextLine();
+			
+			System.out.println("Nueva descripcion: ");
+			String newDescription = input.nextLine();
+			
+			System.out.println("Nueva fecha de vencimiento (formato yyyy-mm-dd): ");
+			String newDueDateString = input.nextLine();
+        	Date dueDate = new Date();
+        	
+			System.out.println("Nueva prioridad (1 - Alta, 2 - Media, 3 - Baja): ");
+			int newPriority = input.nextInt();
+			
+			//Update task
+			Task updatedTask = new Task(newTitle, newDescription, dueDate, newPriority);
+			tasks.set(index, updatedTask); 
+//			System.out.println(index);
+			
 		}
 		
 	}

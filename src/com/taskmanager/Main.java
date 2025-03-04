@@ -17,7 +17,8 @@ public class Main {
             System.out.println("2. Crear nueva tarea");
             System.out.println("3. Eliminar tarea");
             System.out.println("4. Completar tarea");
-            System.out.println("5. Salir");
+            System.out.println("5. Actualizar tarea");
+            System.out.println("6. Salir");
             System.out.print("Selecciona una opción: ");
             int option = input.nextInt();
             input.nextLine();  // Limpiar el buffer
@@ -51,6 +52,11 @@ public class Main {
             	taskManager.completeTask(completedTaskTitle);
             	break;
             case 5:
+            	System.out.println("Ingresar titulo de la tarea a actualizar: ");
+            	String updateTaskTitle = input.nextLine();
+            	taskManager.updateTask(updateTaskTitle);
+            	break;
+            case 6:
             	System.out.println("Saliendo...");
             	return;
             default:
