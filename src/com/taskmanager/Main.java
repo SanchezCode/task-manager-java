@@ -1,5 +1,7 @@
 package com.taskmanager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -33,7 +35,13 @@ public class Main {
             	String description = input.nextLine();
             	System.out.println("Fecha de vencimiento (formato yyyy-mm-dd): ");
             	String dueDateString = input.nextLine();
-            	Date dueDate = new Date();
+            	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            	Date dueDate = null;
+            	try {
+            		dueDate = sdf.parse(dueDateString);
+            	} catch (ParseException e) {
+            		System.out.println("Ërror al parsear fecha.");
+            	}
             	System.out.println("Prioridad (1 - Alta, 2 - Media, 3 - Baja): ");
             	int priority = input.nextInt();
             

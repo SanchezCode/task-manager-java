@@ -1,5 +1,8 @@
 package com.taskmanager.services;
 import com.taskmanager.models.Task;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,9 +66,14 @@ public class TaskManager {
 			String newDescription = input.nextLine();
 			
 			System.out.println("Nueva fecha de vencimiento (formato yyyy-mm-dd): ");
-			String newDueDateString = input.nextLine();
-        	Date dueDate = new Date();
-        	
+			String dueDateString = input.nextLine();
+        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        	Date dueDate = null;
+        	try {
+        		dueDate = sdf.parse(dueDateString);
+        	} catch (ParseException e) {
+        		System.out.println("Ërror al parsear fecha.");
+        	}
 			System.out.println("Nueva prioridad (1 - Alta, 2 - Media, 3 - Baja): ");
 			int newPriority = input.nextInt();
 			
