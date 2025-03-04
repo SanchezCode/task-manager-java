@@ -28,14 +28,18 @@ public class TaskManager {
 		}
 	}
 	
-	public void deleteTask(String title) {
-		Task taskToRemove = null;
-		
+	private Task getTaskByName(String title) {
 		for(Task task: tasks) {
 			if(task.getTitle().equals(title)) {
-				taskToRemove = task; break;
+				return task;
 			}
 		}
+		System.out.println("No se ha encontrado la tarea.");
+		return null;
+	}
+	
+	public void deleteTask(String title) {
+		Task taskToRemove = getTaskByName(title);
 		if(taskToRemove != null) {
 			tasks.remove(taskToRemove);
 			System.out.println("La tarea: " + taskToRemove.getTitle() + " se ha borrado.");
@@ -46,23 +50,12 @@ public class TaskManager {
 	}
 	
 	public void completeTask(String title) {
-		for(Task task: tasks) {
-			if(task.getTitle().equals(title)) {
-				task.completeTask();
-				System.out.println("Tarea: " + task.getTitle() + "completada!");
-			} else {
-				System.out.println("La tarea no se encontro.");
-			}
+		Task taskToComplete = getTaskByName(title);
+		if(taskToComplete != null) {
+			taskToComplete.completeTask();
+		} else {
+			System.out.println("La tarea no se encontro.");
 		}
 	}
 	
-	public Task getTaskByName(String title) {
-		for(Task task: tasks) {
-			if(task.getTitle().equals(title)) {
-				return task;
-			}
-		}
-		System.out.println("No se ha encontrado la tarea.");
-		return null;
-	}
 }
