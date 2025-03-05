@@ -1,8 +1,6 @@
 package com.taskmanager.ui;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -35,27 +33,27 @@ public class TaskMenu {
 		        	taskManager.listTasks();
 		        	break;
 		        case 2:
-		        	String title = promptForInput("Titulo: "); 	
-		        	String description = promptForInput("Descripcion: ");
-		        	Date dueDate = null;
-		        	while(dueDate == null) {
-		        	String dueDateString = promptForInput("Fecha de vencimiento (formato yyyy-mm-dd): ");
-		        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		        	
-		        	try { //Manage Date...
-		        		sdf.setLenient(false); //This disable format flexibility like 2000-02-31
-		        		dueDate = sdf.parse(dueDateString);
-		        		
-		        	} catch (ParseException e) {
-		        		System.out.println("Ërror al parsear fecha.");
-		        	}
-		        	}
-		        	System.out.println("Prioridad (1 - Alta, 2 - Media, 3 - Baja): ");
-		        	int priority = input.nextInt();
-		        
-		        	taskManager.addTask(title, description, dueDate, priority);
-		        	System.out.println("Tarea creada.");
-		        	break;
+//		        	String title = promptForInput("Titulo: "); 	
+//		        	String description = promptForInput("Descripcion: ");
+//		        	Date dueDate = null;
+//		        	while(dueDate == null) {
+//		        	String dueDateString = promptForInput("Fecha de vencimiento (formato yyyy-mm-dd): ");
+//		        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		        	
+//		        	try { //Manage Date...
+//		        		sdf.setLenient(false); //This disable format flexibility like 2000-02-31
+//		        		dueDate = sdf.parse(dueDateString);
+//		        		
+//		        	} catch (ParseException e) {
+//		        		System.out.println("Ërror al parsear fecha.");
+//		        	}
+//		        	}
+//		        	System.out.println("Prioridad (1 - Alta, 2 - Media, 3 - Baja): ");
+//		        	int priority = input.nextInt();
+//		        
+//		        	taskManager.addTask(title, description, dueDate, priority);
+//		        	System.out.println("Tarea creada.");
+//		        	break;
 		        case 3:
 		        	System.out.println("Ingresar nombre de la tarea: ");
 		        	String removeTaskTitle = input.nextLine();
@@ -88,9 +86,5 @@ public class TaskMenu {
 		}
 	}
 	
-	private String promptForInput(String message) {
-	    System.out.println(message);
-	    return input.nextLine();
-	}
 
 }
