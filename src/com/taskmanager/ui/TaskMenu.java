@@ -41,8 +41,9 @@ public class TaskMenu {
 		        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		        	Date dueDate = null;
 		        	
-		        	try {
+		        	try { //Manage Date...
 		        		dueDate = sdf.parse(dueDateString);
+		        		sdf.setLenient(false); //This disable format flexibility like 2000-02-31
 		        	} catch (ParseException e) {
 		        		System.out.println("Ërror al parsear fecha.");
 		        	}
