@@ -37,17 +37,19 @@ public class TaskMenu {
 		        case 2:
 		        	String title = promptForInput("Titulo: "); 	
 		        	String description = promptForInput("Descripcion: ");
+		        	Date dueDate = null;
+		        	while(dueDate == null) {
 		        	String dueDateString = promptForInput("Fecha de vencimiento (formato yyyy-mm-dd): ");
 		        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		        	Date dueDate = null;
 		        	
 		        	try { //Manage Date...
-		        		dueDate = sdf.parse(dueDateString);
 		        		sdf.setLenient(false); //This disable format flexibility like 2000-02-31
+		        		dueDate = sdf.parse(dueDateString);
+		        		
 		        	} catch (ParseException e) {
 		        		System.out.println("Ërror al parsear fecha.");
 		        	}
-		        	
+		        	}
 		        	System.out.println("Prioridad (1 - Alta, 2 - Media, 3 - Baja): ");
 		        	int priority = input.nextInt();
 		        
