@@ -1,5 +1,6 @@
 package com.taskmanager.services;
 import com.taskmanager.models.Task;
+import com.taskmanager.utils.InputUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,14 +13,44 @@ import java.util.Scanner;
 
 public class TaskManager {
 	private List<Task> tasks;
-	
+	InputUtils input = new InputUtils();
+	Scanner scanner = new Scanner(System.in);
 	public TaskManager() {
 		this.tasks = new ArrayList<>();
 	}
-	
-	public void addTask(String title, String description, Date dueDate, int priority) {
-		Task newTask = new Task(title, description, dueDate, priority);
-		tasks.add(newTask);
+	public Task createTask() {
+		String title = input.promptForInput("Titulo: "); 	
+    	String description = input.promptForInput("Descripcion: ");
+    	Date dueDate = null;
+    	while(dueDate == null) {
+	    	String dueDateString = input.promptForInput("Fecha de vencimiento (formato yyyy-mm-dd): ");
+	    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    	
+	    	try { //Manage Date...
+	    		sdf.setLenient(false); //This disable format flexibility like 2000-02-31
+	    		dueDate = sdf.parse(dueDateString);
+	    		
+	    	} catch (ParseException e) {
+	    		System.out.println("Error al parsear fecha.");
+	    	}
+    	}
+    	System.out.println("Prioridad (1 - Alta, 2 - Media, 3 - Baja): ");
+    	int priority = scanner.nextInt();
+    	while(priority < 1 || priority > 3) {
+    		System.out.println("Ha ingresado un numero fuera del rango.");
+    		System.out.println("Prioridad (1 - Alta, 2 - Media, 3 - Baja): ");
+        	priority = scanner.nextInt();
+    	}
+    
+    	Task task = new Task(title, description, dueDate, priority);
+    	return task;
+	}
+	public void addTask() {
+//		Task newTask = new Task(title, description, dueDate, priority);
+//		tasks.add(newTask);
+		Task task = createTask();
+    	tasks.add(task);
+    	System.out.println("Tarea creada.");
 	}
 	
 	public void listTasks() {
@@ -56,32 +87,10 @@ public class TaskManager {
 	public void updateTask(String title) {
 		Task taskToUpdate = getTaskByName(title);
 		if(taskToUpdate != null) {
-			Scanner input = new Scanner(System.in);
 			int index = tasks.indexOf(taskToUpdate);
-			
-			System.out.println("Nuevo titulo: ");
-			String newTitle = input.nextLine();
-			
-			System.out.println("Nueva descripcion: ");
-			String newDescription = input.nextLine();
-			
-			System.out.println("Nueva fecha de vencimiento (formato yyyy-mm-dd): ");
-			String dueDateString = input.nextLine();
-        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        	Date dueDate = null;
-        	try {
-        		dueDate = sdf.parse(dueDateString);
-        	} catch (ParseException e) {
-        		System.out.println("Ërror al parsear fecha.");
-        	}
-			System.out.println("Nueva prioridad (1 - Alta, 2 - Media, 3 - Baja): ");
-			int newPriority = input.nextInt();
-			
 			//Update task
-			Task updatedTask = new Task(newTitle, newDescription, dueDate, newPriority);
-			tasks.set(index, updatedTask); 
-//			System.out.println(index);
-			
+			Task updatedTask = createTask();
+			tasks.set(index, updatedTask); 			
 		}
 		
 	}
